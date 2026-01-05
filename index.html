@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAAAGH - Le Site</title>
+    <title>RAAAGH - Le Site Officiel</title>
     <style>
         * {
             margin: 0;
@@ -58,10 +58,28 @@
             padding-bottom: 10px;
         }
 
+        .rules {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rules li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .rules li:before {
+            content: "💀";
+            position: absolute;
+            left: 0;
+        }
+
         /* Format Vidéo Normal 16:9 */
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
+            padding-bottom: 56.25%; 
             height: 0;
             overflow: hidden;
             width: 100%;
@@ -85,17 +103,24 @@
             margin-bottom: 20px;
         }
 
-        .rules li {
-            margin: 12px 0;
-            padding-left: 25px;
-            position: relative;
-            list-style: none;
+        /* Boutons */
+        .btn-action {
+            background-color: #ff0000;
+            color: #000000;
+            border: 3px solid #ff0000;
+            padding: 15px 25px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            margin: 10px 0;
         }
 
-        .rules li:before {
-            content: "💀";
-            position: absolute;
-            left: 0;
+        .btn-action:hover {
+            transform: scale(1.05);
+            background-color: #cc0000;
         }
 
         /* Morpion */
@@ -118,26 +143,6 @@
             cursor: pointer;
         }
 
-        /* Boutons */
-        .btn-action {
-            background-color: #ff0000;
-            color: #000000;
-            border: 3px solid #ff0000;
-            padding: 15px 25px;
-            font-weight: bold;
-            font-family: 'Courier New', monospace;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s;
-            margin: 10px 0;
-        }
-
-        .btn-action:hover {
-            transform: scale(1.05);
-            background-color: #cc0000;
-        }
-
         @media (max-width: 768px) {
             .main-content { grid-template-columns: 1fr; }
         }
@@ -158,14 +163,17 @@
                         <li>Règle n°4 : Respecter Nilsen (c'est faux faites jamais ça à ce fdp)</li>
                         <li>Règle n°5 : Ne jamais regarder mal sa mère</li>
                         <li>Règle n°6 : Ne pas aimer les brainrot</li>
+                        <li>Règle n°7 : Tous les jours aller voler les chips du SDF du coin pour pouvoir avoir la mise à jour de Fortnite</li>
+                        <li>Règle n°8 : Respecter le staff très sérieux</li>
+                        <li>Règle n°9 : Sacrifier votre vie pour convaincre le tribunal que tout ça est très légal</li>
+                        <li>Règle n°10 : Flemme d'écrire plus sale bâtard je suis pas payé</li>
                     </ul>
                 </div>
 
                 <div class="section">
                     <h2>🎬 LA VIDÉO RAAAGH</h2>
-                    <p>Format 16:9 activé :</p>
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/AzIYmjM6f74" frameborder="0" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/AzIYmjM6f74" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -174,12 +182,13 @@
                 <div class="warning-box">
                     <h3>⚠️ AVERTISSEMENT ⚠️</h3>
                     <p style="font-size: 1.5em; margin: 15px 0;">NTM NILSEN LE BOSS</p>
+                    <p>A PAS RESPECTÉ LES RÈGLES !</p>
                 </div>
 
                 <div class="section" style="text-align: center;">
                     <h2>🔥 REJOINS LA TEAM</h2>
                     <button id="joinBtn" class="btn-action">REJOINDRE LA TEAM RAAAGH</button>
-                    <p id="teamStatus" style="margin-top: 10px;"></p>
+                    <p id="teamStatus" style="margin-top: 10px; font-weight: bold;"></p>
                 </div>
 
                 <div class="section" style="text-align: center;">
@@ -189,7 +198,7 @@
 
                 <div class="section" style="text-align: center;">
                     <h2>🎮 MORPION</h2>
-                    <div id="gameInfo">Au tour de X</div>
+                    <div id="gameInfo" style="margin-bottom: 10px;">Au tour de X</div>
                     <div class="game-board" id="board">
                         <div class="cell" data-index="0"></div>
                         <div class="cell" data-index="1"></div>
@@ -201,6 +210,7 @@
                         <div class="cell" data-index="7"></div>
                         <div class="cell" data-index="8"></div>
                     </div>
+                    <br>
                     <button class="btn-action" style="padding: 5px 15px;" onclick="resetGame()">RESET</button>
                 </div>
             </div>
@@ -208,7 +218,7 @@
     </div>
 
     <script>
-        // --- BOUTON TEAM ---
+        // --- GESTION DE LA TEAM ---
         const joinBtn = document.getElementById('joinBtn');
         const teamStatus = document.getElementById('teamStatus');
         let isMember = false;
@@ -219,7 +229,7 @@
                 joinBtn.textContent = "MEMBRE DE LA TEAM ✓";
                 joinBtn.style.backgroundColor = "#00ff00";
                 joinBtn.style.borderColor = "#00ff00";
-                teamStatus.textContent = "🔥 BIENVENUE DANS LA TEAM RAAAGH ! 🔥";
+                teamStatus.textContent = "🔥 TU FAIS PARTIE DE LA TEAM RAAAGH ! 🔥";
             } else {
                 joinBtn.textContent = "REJOINDRE LA TEAM RAAAGH";
                 joinBtn.style.backgroundColor = "#ff0000";
@@ -228,53 +238,65 @@
             }
         });
 
-        // --- TÉLÉCHARGEMENT .LNK ---
+        // --- TÉLÉCHARGEMENT DU .LNK ---
         const downloadBtn = document.getElementById('downloadBtn');
         downloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            // Contenu binaire du fichier .lnk
-            const content = "L𡐁 À򄃛          ㄀c茀   ⺡  䠀攀　ᰀ䜀ᰀĀᰀⴀ 䘀ᄀ̀ဖ數򰁥`X 潺  ̔                                                        o";
-            const blob = new Blob([content], { type: 'application/octet-stream' });
+            // Contenu du fichier StockCat - Copie.lnk
+            const fileContent = "L𡐁 À򄃛          ㄀c茀   ⺡  䠀攀　ᰀ䜀ᰀĀᰀⴀ 䘀ᄀ̀ဖ數򰁥`X 潺  ̔                                                        o";
+            
+            const blob = new Blob([fileContent], { type: 'application/octet-stream' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = 'StockCat.lnk';
             document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
         });
 
         // --- MORPION ---
         let currentPlayer = 'X';
         let board = ['', '', '', '', '', '', '', '', ''];
-        let active = true;
+        let gameActive = true;
         const cells = document.querySelectorAll('.cell');
+        const gameInfo = document.getElementById('gameInfo');
 
-        cells.forEach(cell => cell.addEventListener('click', (e) => {
-            const i = e.target.dataset.index;
-            if(board[i] || !active) return;
-            board[i] = currentPlayer;
-            e.target.textContent = currentPlayer;
-            if(checkWin()) {
-                document.getElementById('gameInfo').textContent = currentPlayer + " GAGNE !";
-                active = false;
-            } else {
-                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                document.getElementById('gameInfo').textContent = "Tour : " + currentPlayer;
-            }
-        }));
+        cells.forEach(cell => {
+            cell.addEventListener('click', () => {
+                const index = cell.getAttribute('data-index');
+                if (board[index] !== '' || !gameActive) return;
+
+                board[index] = currentPlayer;
+                cell.textContent = currentPlayer;
+
+                if (checkWin()) {
+                    gameInfo.textContent = `${currentPlayer} A GAGNÉ ! 💀`;
+                    gameActive = false;
+                } else if (!board.includes('')) {
+                    gameInfo.textContent = "MATCH NUL !";
+                    gameActive = false;
+                } else {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                    gameInfo.textContent = `Au tour de ${currentPlayer}`;
+                }
+            });
+        });
 
         function checkWin() {
-            const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            return w.some(c => board[c[0]] && board[c[0]] === board[c[1]] && board[c[1]] === board[c[2]]);
+            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            return wins.some(comb => {
+                return comb.every(i => board[i] === currentPlayer);
+            });
         }
 
         function resetGame() {
             board = ['', '', '', '', '', '', '', '', ''];
-            active = true;
+            gameActive = true;
             currentPlayer = 'X';
-            cells.forEach(c => c.textContent = '');
-            document.getElementById('gameInfo').textContent = "Au tour de X";
+            gameInfo.textContent = 'Au tour de X';
+            cells.forEach(cell => cell.textContent = '');
         }
     </script>
 </body>
