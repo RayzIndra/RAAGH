@@ -1,95 +1,179 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>RAAGH - Le site le plus incroyable</title>
-  <style>
-    body {
-      background-color: #000; /* noir */
-      color: #ff0000; /* rouge */
-      font-family: 'Arial', sans-serif;
-      margin: 20px;
-    }
-    h1 {
-      text-align: center;
-      text-transform: uppercase;
-      font-size: 3em;
-      margin-bottom: 0.2em;
-    }
-    p {
-      font-size: 1.2em;
-      margin: 1em 0;
-    }
-    .image-container {
-      text-align: center;
-      margin: 20px 0;
-    }
-    img {
-      max-width: 80%;
-      height: auto;
-      border: 3px solid #ff0000;
-      border-radius: 10px;
-    }
-    .memes {
-      margin: 20px 0;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .meme {
-      width: 150px;
-      border: 2px solid #ff0000;
-      border-radius: 10px;
-    }
-    video {
-      display: block;
-      margin: 20px auto;
-      max-width: 80%;
-      border: 3px solid #ff0000;
-      border-radius: 10px;
-    }
-    .ntm {
-      font-weight: bold;
-      font-size: 1.5em;
-      margin-top: 30px;
-      text-align: center;
-    }
-    .testimonial {
-      font-style: italic;
-      margin-top: 40px;
-      border-top: 2px solid #ff0000;
-      padding-top: 15px;
-      text-align: center;
-      font-size: 1.2em;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAAAGH - Le Site Ultime</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ff0000;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            margin: 20px 0;
+            text-shadow: 0 0 10px #ff0000;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .image-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 20px #ff0000;
+        }
+
+        .meme-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 2px solid #ff0000;
+            background-color: #1a0000;
+        }
+
+        .meme-section h2 {
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .video-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .video-container iframe {
+            max-width: 100%;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 20px #ff0000;
+        }
+
+        .warning {
+            background-color: #330000;
+            border: 3px solid #ff0000;
+            padding: 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .warning h3 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .testimonial {
+            background-color: #1a0000;
+            border-left: 5px solid #ff0000;
+            padding: 20px;
+            margin: 40px 0;
+            font-style: italic;
+        }
+
+        .testimonial .author {
+            text-align: right;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .rules {
+            list-style: none;
+            padding: 20px;
+        }
+
+        .rules li {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .rules li:before {
+            content: "💀";
+            position: absolute;
+            left: 0;
+        }
+    </style>
 </head>
 <body>
-  <h1>Bienvenue sur RAAGH</h1>
-  
-  <p>Le site le plus incroyable (c’est Tchoupi qui l’a dit !)</p>
-  
-  <div class="image-container">
-    <img src="image (14).jpg" alt="Image RAAGH" />
-  </div>
+    <div class="container">
+        <h1>🔥 RAAAGH 🔥</h1>
 
-  <div class="memes">
-    <img class="meme" src="https://i.imgflip.com/1ur9b0.jpg" alt="Meme 1" />
-    <img class="meme" src="https://i.imgflip.com/26am.jpg" alt="Meme 2" />
-  </div>
+        <div class="image-section">
+            <h2>L'Image</h2>
+            <img src="image (14).jpg" alt="Image RAAAGH" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <p style="display:none; color: #ff0000; margin-top: 20px;">⚠️ L'image n'a pas été trouvée - Assurez-vous que "image (14).jpg" est dans le même dossier que ce fichier HTML</p>
+        </div>
 
-  <video controls autoplay loop muted>
-    <source src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.mp4" type="video/mp4" />
-    Votre navigateur ne supporte pas la vidéo.
-  </video>
+        <div class="meme-section">
+            <h2>📜 LES RÈGLES</h2>
+            <ul class="rules">
+                <li>Règle n°1 : Tous les jours lécher les pieds d'une ghost girl</li>
+                <li>Règle n°2 : Respecter les règles</li>
+                <li>Règle n°3 : Prier pour Shrek</li>
+                <li>Règle n°4 : Respecter Nilsen (c'est faux faites jamais ça à ce fdp)</li>
+                <li>Règle n°5 : Ne jamais regarder mal sa mère</li>
+                <li>Règle n°6 : Ne pas aimer les brainrot</li>
+                <li>Règle n°7 : Tous les jours aller voler les chips du SDF du coin pour pouvoir avoir la mise à jour de Fortnite</li>
+                <li>Règle n°8 : Respecter le staff très sérieux</li>
+                <li>Règle n°9 : Sacrifier votre vie pour convaincre le tribunal que tout ça est très légal</li>
+                <li>Règle n°10 : Flemme d'écrire plus sale bâtard je suis pas payé</li>
+            </ul>
+        </div>
 
-  <p class="ntm">ntm nilsen le boss a pas respecté les règles</p>
+        <div class="video-container">
+            <h2>🎬 LA VIDÉO</h2>
+            <p style="margin: 20px 0;">Le squelette qui fait RAAAGH :</p>
+            <iframe width="560" height="315" 
+                src="https://www.youtube.com/embed/YBJhzfvdgx8" 
+                title="Skeleton Screaming" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
 
-  <div class="testimonial">
-    « RAAGH est le site le plus incroyable qu'il ait jamais vu ! »<br/>
-    — Tchoupi (pas vrai)
-  </div>
+        <div class="warning">
+            <h3>⚠️ AVERTISSEMENT ⚠️</h3>
+            <p style="font-size: 1.5em; margin: 20px 0;">NTM NILSEN LE BOSS</p>
+            <p>A PAS RESPECTÉ LES RÈGLES !</p>
+        </div>
+
+        <div class="testimonial">
+            <p style="font-size: 1.2em;">
+                "RAAAGH est le site le plus incroyable que j'ai jamais vu ! 
+                Je n'ai jamais rien vu d'aussi spectaculaire de toute ma vie. 
+                C'est absolument magnifique et révolutionnaire !"
+            </p>
+            <p class="author">- Tchoupi 🐭</p>
+            <p style="font-size: 0.8em; margin-top: 10px; opacity: 0.7;">(spoiler : c'est faux)</p>
+        </div>
+
+        <div style="text-align: center; margin: 40px 0; font-size: 3em;">
+            💀 RAAAGH 💀
+        </div>
+    </div>
 </body>
 </html>
-
