@@ -78,7 +78,7 @@
 
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; 
+            padding-bottom: 56.25%; /* Ratio 16:9 */
             height: 0;
             overflow: hidden;
             width: 100%;
@@ -112,14 +112,14 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: all 0.1s; /* Transition plus rapide pour le spam */
+            transition: transform 0.1s;
             margin: 10px 0;
             text-transform: uppercase;
             user-select: none;
         }
 
         .btn-action:active {
-            transform: scale(0.95); /* Petit effet d'enfoncement quand on clique */
+            transform: scale(0.95);
         }
 
         .btn-action:hover {
@@ -129,6 +129,13 @@
         .discord-btn {
             margin-top: 15px;
             border-style: dashed;
+            background-color: #5865F2; /* Couleur Discord un peu adaptée */
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+        
+        .discord-btn:hover {
+            background-color: #4752C4;
         }
 
         .counter-box {
@@ -205,9 +212,9 @@
                     <button id="joinBtn" class="btn-action">DONNER DE LA FORCE (CLIQUE !)</button>
                     
                     <div class="counter-box">
-                        FORCE TOTALE : <span id="memberCount">...</span> 💥
+                        FORCE TOTALE : <span id="memberCount">Chargement...</span> 💥
                     </div>
-                    <p id="teamStatus" style="margin-top: 10px; font-weight: bold; color: #00ff00; height: 20px;"></p>
+                    <p id="teamStatus" style="margin-top: 10px; font-weight: bold; color: #00ff00; min-height: 24px;"></p>
 
                     <br>
                     <a href="https://discord.gg/nAJcYnFT" target="_blank" class="btn-action discord-btn">
@@ -242,47 +249,62 @@
     </div>
 
     <script>
-        // --- COMPTEUR MONDIAL (Mode Spam Activé) ---
+        // --- COMPTEUR MONDIAL (Nouveau Serveur + Fallback) ---
         const memberCountDisplay = document.getElementById('memberCount');
         const joinBtn = document.getElementById('joinBtn');
         const teamStatus = document.getElementById('teamStatus');
         
-        const apiKey = "team_raaagh_total_members_v1";
+        // Serveur de secours (plus fiable)
+        const namespace = "raaagh_team_officiel";
+        const key = "clicks_v2";
+        const apiUrl = `https://countapi.maayanlab.cloud/hit/${namespace}/${key}`;
+        const infoUrl = `https://countapi.maayanlab.cloud/get/${namespace}/${key}`;
 
-        // Charger le score initial
-        fetch(`https://api.countapi.xyz/get/raaagh_site/${apiKey}`)
-            .then(res => res.json())
-            .then(data => {
-                memberCountDisplay.textContent = data.value || 0;
-            })
-            .catch(() => { memberCountDisplay.textContent = "0"; });
+        // Fonction pour récupérer le compte actuel
+        async function getCount() {
+            try {
+                const response = await fetch(infoUrl);
+                const data = await response.json();
+                memberCountDisplay.textContent = data.value;
+            } catch (error) {
+                // Fallback si internet bug : on affiche le localStorage
+                console.log("Mode hors-ligne activé");
+                memberCountDisplay.textContent = localStorage.getItem('localClickCount') || 666;
+            }
+        }
 
-        // Quand on clique (SPAM ALLOWED)
-        joinBtn.addEventListener('click', () => {
-            // Effet visuel immédiat
+        // Au chargement de la page
+        getCount();
+
+        // Quand on clique (SPAM AUTORISÉ)
+        joinBtn.addEventListener('click', async () => {
+            // Animation du bouton
             joinBtn.style.transform = "scale(0.95)";
             setTimeout(() => joinBtn.style.transform = "scale(1)", 100);
 
-            fetch(`https://api.countapi.xyz/hit/raaagh_site/${apiKey}`)
-                .then(res => res.json())
-                .then(data => {
-                    memberCountDisplay.textContent = data.value;
-                    
-                    // Petit message aléatoire à chaque clic
-                    const messages = ["+1 FORCE !", "RAAAGH !", "ENCORE !", "LET'S GO !", "💀💀💀"];
-                    teamStatus.textContent = messages[Math.floor(Math.random() * messages.length)];
-                    
-                    // Reset du message après un court instant
-                    setTimeout(() => {
-                        teamStatus.textContent = "";
-                    }, 500);
-                });
+            // Messages aléatoires
+            const messages = ["+1 FORCE !", "RAAAGH !", "ENCORE !", "LET'S GO !", "💀💀💀", "SHEEEEESH"];
+            teamStatus.textContent = messages[Math.floor(Math.random() * messages.length)];
+            setTimeout(() => teamStatus.textContent = "", 800);
+
+            try {
+                // Essai de mise à jour serveur mondial
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                memberCountDisplay.textContent = data.value;
+            } catch (error) {
+                // Si ça rate, on incrémente juste en local pour l'utilisateur
+                let localCount = parseInt(localStorage.getItem('localClickCount') || 666) + 1;
+                localStorage.setItem('localClickCount', localCount);
+                memberCountDisplay.textContent = localCount + " (Mode Local)";
+            }
         });
 
         // --- TÉLÉCHARGEMENT ---
         const downloadBtn = document.getElementById('downloadBtn');
         downloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            // Contenu binaire simulé du fichier .lnk
             const fileContent = "L𡐁 À򄃛          ㄀c茀   ⺡  䠀攀　ᰀ䜀ᰀĀᰀⴀ 䘀ᄀ̀ဖ數򰁥`X 潺  ̔                                                        o";
             const blob = new Blob([fileContent], { type: 'application/octet-stream' });
             const url = window.URL.createObjectURL(blob);
@@ -291,6 +313,7 @@
             a.download = 'StockCat.lnk';
             document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
         });
 
