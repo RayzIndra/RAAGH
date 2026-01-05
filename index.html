@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAAAGH - Le Site Officiel</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: #000000;
@@ -32,10 +28,7 @@
             50% { opacity: 0.5; }
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1400px; margin: 0 auto; }
 
         .main-content {
             display: grid;
@@ -58,10 +51,7 @@
             padding-bottom: 10px;
         }
 
-        .rules {
-            list-style: none;
-            padding: 0;
-        }
+        .rules { list-style: none; padding: 0; }
 
         .rules li {
             margin: 12px 0;
@@ -76,9 +66,10 @@
             left: 0;
         }
 
+        /* Format Vidéo Normal 16:9 */
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             width: 100%;
@@ -88,18 +79,7 @@
 
         .video-container iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .warning-box {
-            background-color: #330000;
-            border: 3px solid #ff0000;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
+            top: 0; left: 0; width: 100%; height: 100%;
         }
 
         .btn-action {
@@ -115,27 +95,15 @@
             transition: transform 0.1s;
             margin: 10px 0;
             text-transform: uppercase;
-            user-select: none;
         }
 
-        .btn-action:active {
-            transform: scale(0.95);
-        }
-
-        .btn-action:hover {
-            background-color: #cc0000;
-        }
+        .btn-action:active { transform: scale(0.95); }
 
         .discord-btn {
+            background-color: #5865F2;
+            color: white;
+            border-color: white;
             margin-top: 15px;
-            border-style: dashed;
-            background-color: #5865F2; /* Couleur Discord un peu adaptée */
-            color: #ffffff;
-            border-color: #ffffff;
-        }
-        
-        .discord-btn:hover {
-            background-color: #4752C4;
         }
 
         .counter-box {
@@ -154,14 +122,11 @@
         }
 
         .cell {
-            width: 80px;
-            height: 80px;
+            width: 80px; height: 80px;
             background-color: #1a0000;
             border: 2px solid #ff0000;
             font-size: 2em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             cursor: pointer;
         }
 
@@ -187,7 +152,7 @@
                         <li>Règle n°6 : Ne pas aimer les brainrot</li>
                         <li>Règle n°7 : Tous les jours voler les chips du SDF du coin</li>
                         <li>Règle n°8 : Respecter le staff très sérieux</li>
-                        <li>Règle n°9 : Sacrifier votre vie pour le tribunal</li>
+                        <li>Règle n°9 : Sacrifiez votre vie au tribunal car tous ceci est tres legal</li>
                         <li>Règle n°10 : Flemme d'écrire plus sale bâtard</li>
                     </ul>
                 </div>
@@ -201,22 +166,14 @@
             </div>
 
             <div class="right-column">
-                <div class="warning-box">
-                    <h3>⚠️ AVERTISSEMENT ⚠️</h3>
-                    <p style="font-size: 1.5em; margin: 15px 0;">NTM NILSEN LE BOSS</p>
-                </div>
-
                 <div class="section" style="text-align: center;">
                     <h2>🔥 TEAM RAAAGH</h2>
-                    
-                    <button id="joinBtn" class="btn-action">DONNER DE LA FORCE (CLIQUE !)</button>
-                    
+                    <button id="joinBtn" class="btn-action">DONNER DE LA FORCE (SPAM !)</button>
                     <div class="counter-box">
-                        FORCE TOTALE : <span id="memberCount">Chargement...</span> 💥
+                        FORCE TOTALE : <span id="memberCount">0</span> 💥
                     </div>
-                    <p id="teamStatus" style="margin-top: 10px; font-weight: bold; color: #00ff00; min-height: 24px;"></p>
+                    <p id="teamStatus" style="margin-top: 10px; font-weight: bold; color: #00ff00; height: 20px;"></p>
 
-                    <br>
                     <a href="https://discord.gg/nAJcYnFT" target="_blank" class="btn-action discord-btn">
                         💬 REJOINDRE LE DISCORD
                     </a>
@@ -229,7 +186,7 @@
 
                 <div class="section" style="text-align: center;">
                     <h2>🎮 MORPION</h2>
-                    <div id="gameInfo" style="margin-bottom: 10px;">Au tour de X</div>
+                    <div id="gameInfo">Tour : X</div>
                     <div class="game-board" id="board">
                         <div class="cell" data-index="0"></div>
                         <div class="cell" data-index="1"></div>
@@ -242,118 +199,74 @@
                         <div class="cell" data-index="8"></div>
                     </div>
                     <br>
-                    <button class="btn-action" style="padding: 5px 15px;" onclick="resetGame()">RESET</button>
+                    <button class="btn-action" style="padding: 5px 10px;" onclick="resetGame()">RESET</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- COMPTEUR MONDIAL (Nouveau Serveur + Fallback) ---
+        // --- COMPTEUR ---
         const memberCountDisplay = document.getElementById('memberCount');
         const joinBtn = document.getElementById('joinBtn');
         const teamStatus = document.getElementById('teamStatus');
         
-        // Serveur de secours (plus fiable)
-        const namespace = "raaagh_team_officiel";
-        const key = "clicks_v2";
-        const apiUrl = `https://countapi.maayanlab.cloud/hit/${namespace}/${key}`;
-        const infoUrl = `https://countapi.maayanlab.cloud/get/${namespace}/${key}`;
+        let count = parseInt(localStorage.getItem('raaagh_force')) || 0;
+        memberCountDisplay.textContent = count;
 
-        // Fonction pour récupérer le compte actuel
-        async function getCount() {
-            try {
-                const response = await fetch(infoUrl);
-                const data = await response.json();
-                memberCountDisplay.textContent = data.value;
-            } catch (error) {
-                // Fallback si internet bug : on affiche le localStorage
-                console.log("Mode hors-ligne activé");
-                memberCountDisplay.textContent = localStorage.getItem('localClickCount') || 666;
-            }
-        }
-
-        // Au chargement de la page
-        getCount();
-
-        // Quand on clique (SPAM AUTORISÉ)
-        joinBtn.addEventListener('click', async () => {
-            // Animation du bouton
-            joinBtn.style.transform = "scale(0.95)";
-            setTimeout(() => joinBtn.style.transform = "scale(1)", 100);
-
-            // Messages aléatoires
-            const messages = ["+1 FORCE !", "RAAAGH !", "ENCORE !", "LET'S GO !", "💀💀💀", "SHEEEEESH"];
-            teamStatus.textContent = messages[Math.floor(Math.random() * messages.length)];
-            setTimeout(() => teamStatus.textContent = "", 800);
-
-            try {
-                // Essai de mise à jour serveur mondial
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                memberCountDisplay.textContent = data.value;
-            } catch (error) {
-                // Si ça rate, on incrémente juste en local pour l'utilisateur
-                let localCount = parseInt(localStorage.getItem('localClickCount') || 666) + 1;
-                localStorage.setItem('localClickCount', localCount);
-                memberCountDisplay.textContent = localCount + " (Mode Local)";
-            }
+        joinBtn.addEventListener('click', () => {
+            count++;
+            localStorage.setItem('raaagh_force', count);
+            memberCountDisplay.textContent = count;
+            
+            const msgs = ["RAAAGH !", "+1 FORCE", "BOUGE PAS !", "KAPOUE !"];
+            teamStatus.textContent = msgs[Math.floor(Math.random()*msgs.length)];
+            setTimeout(() => teamStatus.textContent = "", 500);
         });
 
-        // --- TÉLÉCHARGEMENT ---
-        const downloadBtn = document.getElementById('downloadBtn');
-        downloadBtn.addEventListener('click', (e) => {
+        // --- DOWNLOAD ---
+        document.getElementById('downloadBtn').addEventListener('click', (e) => {
             e.preventDefault();
-            // Contenu binaire simulé du fichier .lnk
-            const fileContent = "L𡐁 À򄃛          ㄀c茀   ⺡  䠀攀　ᰀ䜀ᰀĀᰀⴀ 䘀ᄀ̀ဖ數򰁥`X 潺  ̔                                                        o";
-            const blob = new Blob([fileContent], { type: 'application/octet-stream' });
+            const content = "L𡐁 À򄃛          ㄀c茀   ⺡  䠀攀　ᰀ䜀ᰀĀᰀⴀ 䘀ᄀ̀ဖ數򰁥`X 潺  ̔                                                        o";
+            const blob = new Blob([content], { type: 'application/octet-stream' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url;
-            a.download = 'StockCat.lnk';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            a.href = url; a.download = 'StockCat.lnk';
+            document.body.appendChild(a); a.click();
             window.URL.revokeObjectURL(url);
         });
 
         // --- MORPION ---
-        let currentPlayer = 'X';
-        let board = ['', '', '', '', '', '', '', '', ''];
-        let gameActive = true;
-        const cells = document.querySelectorAll('.cell');
-        const gameInfo = document.getElementById('gameInfo');
+        let currentPlayer = 'X', board = ['', '', '', '', '', '', '', '', ''], active = true;
+        const cells = document.querySelectorAll('.cell'), info = document.getElementById('gameInfo');
 
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
-                const index = cell.getAttribute('data-index');
-                if (board[index] !== '' || !gameActive) return;
-                board[index] = currentPlayer;
+                const i = cell.dataset.index;
+                if (board[i] || !active) return;
+                board[i] = currentPlayer;
                 cell.textContent = currentPlayer;
                 if (checkWin()) {
-                    gameInfo.textContent = `${currentPlayer} A GAGNÉ ! 💀`;
-                    gameActive = false;
+                    info.textContent = currentPlayer + " GAGNE ! 💀";
+                    active = false;
                 } else if (!board.includes('')) {
-                    gameInfo.textContent = "MATCH NUL !";
-                    gameActive = false;
+                    info.textContent = "NUL !";
+                    active = false;
                 } else {
                     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                    gameInfo.textContent = `Au tour de ${currentPlayer}`;
+                    info.textContent = "Tour : " + currentPlayer;
                 }
             });
         });
 
         function checkWin() {
-            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            return wins.some(comb => comb.every(i => board[i] === currentPlayer));
+            const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            return w.some(c => board[c[0]] && board[c[0]] === board[c[1]] && board[c[1]] === board[c[2]]);
         }
 
         function resetGame() {
-            board = ['', '', '', '', '', '', '', '', ''];
-            gameActive = true;
-            currentPlayer = 'X';
-            gameInfo.textContent = 'Au tour de X';
-            cells.forEach(cell => cell.textContent = '');
+            board = ['', '', '', '', '', '', '', '', '']; active = true; currentPlayer = 'X';
+            info.textContent = 'Tour : X'; cells.forEach(c => c.textContent = '');
         }
     </script>
 </body>
