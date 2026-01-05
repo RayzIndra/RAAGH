@@ -76,7 +76,6 @@
             left: 0;
         }
 
-        /* Format Vidéo Normal 16:9 */
         .video-container {
             position: relative;
             padding-bottom: 56.25%; 
@@ -103,7 +102,6 @@
             margin-bottom: 20px;
         }
 
-        /* Boutons */
         .btn-action {
             background-color: #ff0000;
             color: #000000;
@@ -121,6 +119,13 @@
         .btn-action:hover {
             transform: scale(1.05);
             background-color: #cc0000;
+        }
+
+        .counter-box {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #ffffff;
+            text-shadow: 0 0 5px #ff0000;
         }
 
         /* Morpion */
@@ -163,17 +168,17 @@
                         <li>Règle n°4 : Respecter Nilsen (c'est faux faites jamais ça à ce fdp)</li>
                         <li>Règle n°5 : Ne jamais regarder mal sa mère</li>
                         <li>Règle n°6 : Ne pas aimer les brainrot</li>
-                        <li>Règle n°7 : Tous les jours aller voler les chips du SDF du coin pour pouvoir avoir la mise à jour de Fortnite</li>
+                        <li>Règle n°7 : Tous les jours voler les chips du SDF du coin</li>
                         <li>Règle n°8 : Respecter le staff très sérieux</li>
-                        <li>Règle n°9 : Sacrifier votre vie pour convaincre le tribunal que tout ça est très légal</li>
-                        <li>Règle n°10 : Flemme d'écrire plus sale bâtard je suis pas payé</li>
+                        <li>Règle n°9 : Sacrifier votre vie pour le tribunal</li>
+                        <li>Règle n°10 : Flemme d'écrire plus sale bâtard</li>
                     </ul>
                 </div>
 
                 <div class="section">
                     <h2>🎬 LA VIDÉO RAAAGH</h2>
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/AzIYmjM6f74" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/AzIYmjM6f74" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -182,12 +187,14 @@
                 <div class="warning-box">
                     <h3>⚠️ AVERTISSEMENT ⚠️</h3>
                     <p style="font-size: 1.5em; margin: 15px 0;">NTM NILSEN LE BOSS</p>
-                    <p>A PAS RESPECTÉ LES RÈGLES !</p>
                 </div>
 
                 <div class="section" style="text-align: center;">
                     <h2>🔥 REJOINS LA TEAM</h2>
                     <button id="joinBtn" class="btn-action">REJOINDRE LA TEAM RAAAGH</button>
+                    <div class="counter-box">
+                        FORCE DE LA TEAM : <span id="memberCount">Chargement...</span>
+                    </div>
                     <p id="teamStatus" style="margin-top: 10px; font-weight: bold;"></p>
                 </div>
 
@@ -218,33 +225,46 @@
     </div>
 
     <script>
-        // --- GESTION DE LA TEAM ---
+        // --- COMPTEUR MONDIAL ---
+        const memberCountDisplay = document.getElementById('memberCount');
         const joinBtn = document.getElementById('joinBtn');
         const teamStatus = document.getElementById('teamStatus');
-        let isMember = false;
+        
+        // On utilise une clé unique pour ta team RAAAGH
+        const apiKey = "team_raaagh_total_members_v1";
+
+        // Récupérer le score actuel au chargement
+        fetch(`https://api.countapi.xyz/get/raaagh_site/${apiKey}`)
+            .then(res => res.json())
+            .then(data => {
+                memberCountDisplay.textContent = data.value || 0;
+            })
+            .catch(() => { memberCountDisplay.textContent = "0"; });
+
+        let joined = false;
 
         joinBtn.addEventListener('click', () => {
-            isMember = !isMember;
-            if (isMember) {
-                joinBtn.textContent = "MEMBRE DE LA TEAM ✓";
-                joinBtn.style.backgroundColor = "#00ff00";
-                joinBtn.style.borderColor = "#00ff00";
-                teamStatus.textContent = "🔥 TU FAIS PARTIE DE LA TEAM RAAAGH ! 🔥";
+            if (!joined) {
+                joined = true;
+                // On incrémente sur le serveur mondial
+                fetch(`https://api.countapi.xyz/hit/raaagh_site/${apiKey}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        memberCountDisplay.textContent = data.value;
+                        joinBtn.textContent = "MEMBRE DE LA TEAM ✓";
+                        joinBtn.style.backgroundColor = "#00ff00";
+                        teamStatus.textContent = "🔥 TU AS AJOUTÉ TA FORCE À LA TEAM ! 🔥";
+                    });
             } else {
-                joinBtn.textContent = "REJOINDRE LA TEAM RAAAGH";
-                joinBtn.style.backgroundColor = "#ff0000";
-                joinBtn.style.borderColor = "#ff0000";
-                teamStatus.textContent = "";
+                alert("Tu es déjà dans la team, bâtard ! On peut pas rejoindre deux fois.");
             }
         });
 
-        // --- TÉLÉCHARGEMENT DU .LNK ---
+        // --- TÉLÉCHARGEMENT ---
         const downloadBtn = document.getElementById('downloadBtn');
         downloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            // Contenu du fichier StockCat - Copie.lnk
             const fileContent = "L𡐁 À򄃛          ㄀c茀   ⺡  䠀攀　ᰀ䜀ᰀĀᰀⴀ 䘀ᄀ̀ဖ數򰁥`X 潺  ̔                                                        o";
-            
             const blob = new Blob([fileContent], { type: 'application/octet-stream' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -252,7 +272,6 @@
             a.download = 'StockCat.lnk';
             document.body.appendChild(a);
             a.click();
-            document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
         });
 
@@ -267,10 +286,8 @@
             cell.addEventListener('click', () => {
                 const index = cell.getAttribute('data-index');
                 if (board[index] !== '' || !gameActive) return;
-
                 board[index] = currentPlayer;
                 cell.textContent = currentPlayer;
-
                 if (checkWin()) {
                     gameInfo.textContent = `${currentPlayer} A GAGNÉ ! 💀`;
                     gameActive = false;
@@ -286,9 +303,7 @@
 
         function checkWin() {
             const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            return wins.some(comb => {
-                return comb.every(i => board[i] === currentPlayer);
-            });
+            return wins.some(comb => comb.every(i => board[i] === currentPlayer));
         }
 
         function resetGame() {
