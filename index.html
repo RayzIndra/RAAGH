@@ -112,17 +112,20 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: all 0.3s;
+            transition: all 0.1s; /* Transition plus rapide pour le spam */
             margin: 10px 0;
             text-transform: uppercase;
+            user-select: none;
+        }
+
+        .btn-action:active {
+            transform: scale(0.95); /* Petit effet d'enfoncement quand on clique */
         }
 
         .btn-action:hover {
-            transform: scale(1.05);
             background-color: #cc0000;
         }
 
-        /* Style spécifique pour le bouton Discord si tu veux le différencier un peu */
         .discord-btn {
             margin-top: 15px;
             border-style: dashed;
@@ -197,14 +200,14 @@
                 </div>
 
                 <div class="section" style="text-align: center;">
-                    <h2>🔥 REJOINS LA TEAM</h2>
+                    <h2>🔥 TEAM RAAAGH</h2>
                     
-                    <button id="joinBtn" class="btn-action">REJOINDRE LA TEAM RAAAGH</button>
+                    <button id="joinBtn" class="btn-action">DONNER DE LA FORCE (CLIQUE !)</button>
                     
                     <div class="counter-box">
-                        FORCE DE LA TEAM : <span id="memberCount">Chargement...</span>
+                        FORCE TOTALE : <span id="memberCount">...</span> 💥
                     </div>
-                    <p id="teamStatus" style="margin-top: 10px; font-weight: bold;"></p>
+                    <p id="teamStatus" style="margin-top: 10px; font-weight: bold; color: #00ff00; height: 20px;"></p>
 
                     <br>
                     <a href="https://discord.gg/nAJcYnFT" target="_blank" class="btn-action discord-btn">
@@ -239,14 +242,14 @@
     </div>
 
     <script>
-        // --- COMPTEUR MONDIAL ---
+        // --- COMPTEUR MONDIAL (Mode Spam Activé) ---
         const memberCountDisplay = document.getElementById('memberCount');
         const joinBtn = document.getElementById('joinBtn');
         const teamStatus = document.getElementById('teamStatus');
         
         const apiKey = "team_raaagh_total_members_v1";
 
-        // Récupérer le score
+        // Charger le score initial
         fetch(`https://api.countapi.xyz/get/raaagh_site/${apiKey}`)
             .then(res => res.json())
             .then(data => {
@@ -254,22 +257,26 @@
             })
             .catch(() => { memberCountDisplay.textContent = "0"; });
 
-        let joined = false;
-
+        // Quand on clique (SPAM ALLOWED)
         joinBtn.addEventListener('click', () => {
-            if (!joined) {
-                joined = true;
-                fetch(`https://api.countapi.xyz/hit/raaagh_site/${apiKey}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        memberCountDisplay.textContent = data.value;
-                        joinBtn.textContent = "MEMBRE DE LA TEAM ✓";
-                        joinBtn.style.backgroundColor = "#00ff00";
-                        teamStatus.textContent = "🔥 TU AS AJOUTÉ TA FORCE À LA TEAM ! 🔥";
-                    });
-            } else {
-                alert("Tu es déjà dans la team, bâtard !");
-            }
+            // Effet visuel immédiat
+            joinBtn.style.transform = "scale(0.95)";
+            setTimeout(() => joinBtn.style.transform = "scale(1)", 100);
+
+            fetch(`https://api.countapi.xyz/hit/raaagh_site/${apiKey}`)
+                .then(res => res.json())
+                .then(data => {
+                    memberCountDisplay.textContent = data.value;
+                    
+                    // Petit message aléatoire à chaque clic
+                    const messages = ["+1 FORCE !", "RAAAGH !", "ENCORE !", "LET'S GO !", "💀💀💀"];
+                    teamStatus.textContent = messages[Math.floor(Math.random() * messages.length)];
+                    
+                    // Reset du message après un court instant
+                    setTimeout(() => {
+                        teamStatus.textContent = "";
+                    }, 500);
+                });
         });
 
         // --- TÉLÉCHARGEMENT ---
