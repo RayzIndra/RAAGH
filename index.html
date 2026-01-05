@@ -176,6 +176,11 @@
             background-color: #cc0000;
         }
 
+        #joinBtn:hover, #downloadBtn:hover {
+            background-color: #cc0000;
+            transform: scale(1.05);
+        }
+
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
@@ -236,6 +241,22 @@
                     <h3>⚠️ AVERTISSEMENT ⚠️</h3>
                     <p style="font-size: 1.5em; margin: 15px 0;">NTM NILSEN LE BOSS</p>
                     <p>A PAS RESPECTÉ LES RÈGLES !</p>
+                </div>
+
+                <div class="section" style="text-align: center;">
+                    <h2>🔥 REJOINS LA TEAM</h2>
+                    <button id="joinBtn" style="background-color: #ff0000; color: #000000; border: 3px solid #ff0000; padding: 15px 30px; font-size: 1.2em; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer; margin: 15px 0; transition: all 0.3s;">
+                        REJOINDRE LA TEAM RAAAGH
+                    </button>
+                    <p id="teamStatus" style="margin-top: 10px; font-size: 1.1em;"></p>
+                </div>
+
+                <div class="section" style="text-align: center;">
+                    <h2>💾 DOWNLOAD</h2>
+                    <p style="margin: 10px 0;">Télécharge StockCat :</p>
+                    <a href="#" id="downloadBtn" style="display: inline-block; background-color: #ff0000; color: #000000; padding: 15px 25px; text-decoration: none; font-weight: bold; border: 3px solid #ff0000; margin: 10px 0; transition: all 0.3s;">
+                        📥 DOWNLOAD STOCKCAT.PY
+                    </a>
                 </div>
 
                 <div class="section game-container">
@@ -349,6 +370,83 @@
                 cell.textContent = '';
             });
         }
+
+        // Bouton Team RAAAGH
+        const joinBtn = document.getElementById('joinBtn');
+        const teamStatus = document.getElementById('teamStatus');
+        let isTeamMember = false;
+
+        joinBtn.addEventListener('click', () => {
+            if (!isTeamMember) {
+                isTeamMember = true;
+                teamStatus.textContent = '🔥 TU FAIS PARTIE DE LA TEAM RAAAGH ! 🔥';
+                joinBtn.textContent = 'MEMBRE DE LA TEAM ✓';
+                joinBtn.style.backgroundColor = '#00ff00';
+                joinBtn.style.borderColor = '#00ff00';
+            } else {
+                isTeamMember = false;
+                teamStatus.textContent = '';
+                joinBtn.textContent = 'REJOINDRE LA TEAM RAAAGH';
+                joinBtn.style.backgroundColor = '#ff0000';
+                joinBtn.style.borderColor = '#ff0000';
+            }
+        });
+
+        // Download StockCat
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const pythonCode = `"""
+Assistant StockCat - Compagnon virtuel interactif
+Style Clippy/Bonzi Buddy avec personnage animé et interaction vocale
+Version stable
+"""
+
+import random
+import sys
+from pathlib import Path
+import tkinter as tk
+from tkinter import messagebox
+
+try:
+    import winsound
+except ImportError:
+    winsound = None
+
+try:
+    from PIL import Image, ImageTk
+    PIL_AVAILABLE = True
+except ImportError:
+    PIL_AVAILABLE = False
+
+import chess
+import chess.pgn
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+STOCKCAT_IMAGE = SCRIPT_DIR / "stockcat.jpg"
+STOCKCAT_SOUND = SCRIPT_DIR / "stockcat.wav"
+
+# Le reste du code est trop long pour être inclus ici
+# Télécharge le fichier complet depuis le repo GitHub !
+
+if __name__ == '__main__':
+    print("StockCat téléchargé depuis RAAAGH ! 💀")
+    print("Pour le code complet, visite le repo GitHub !")
+`;
+            
+            const blob = new Blob([pythonCode], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'stockcat.py';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('📥 StockCat.py téléchargé ! Note: ceci est une version demo. Pour le code complet, visite le repo !');
+        });
     </script>
 </body>
 </html>
