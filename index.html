@@ -58,37 +58,15 @@
             padding-bottom: 10px;
         }
 
-        .left-column, .right-column {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .rules {
-            list-style: none;
-            padding: 0;
-        }
-
-        .rules li {
-            margin: 12px 0;
-            padding-left: 25px;
-            position: relative;
-            line-height: 1.5;
-        }
-
-        .rules li:before {
-            content: "💀";
-            position: absolute;
-            left: 0;
-        }
-
+        /* Format Vidéo Normal 16:9 */
         .video-container {
             position: relative;
-            padding-bottom: 177.77%; /* Ratio 9:16 pour les Shorts */
+            padding-bottom: 56.25%; /* Ratio 16:9 */
             height: 0;
             overflow: hidden;
-            max-width: 315px;
-            margin: 15px auto;
+            width: 100%;
             border: 2px solid #ff0000;
+            margin: 15px 0;
         }
 
         .video-container iframe {
@@ -107,12 +85,20 @@
             margin-bottom: 20px;
         }
 
-        .warning-box h3 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
+        .rules li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            list-style: none;
         }
 
-        /* Morpion Game */
+        .rules li:before {
+            content: "💀";
+            position: absolute;
+            left: 0;
+        }
+
+        /* Morpion */
         .game-board {
             display: inline-grid;
             grid-template-columns: repeat(3, 80px);
@@ -126,24 +112,30 @@
             background-color: #1a0000;
             border: 2px solid #ff0000;
             font-size: 2em;
-            color: #ff0000;
-            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
         }
 
-        .reset-btn, #joinBtn, #downloadBtn {
+        /* Boutons */
+        .btn-action {
             background-color: #ff0000;
             color: #000000;
             border: 3px solid #ff0000;
             padding: 15px 25px;
             font-weight: bold;
-            cursor: pointer;
             font-family: 'Courier New', monospace;
+            cursor: pointer;
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s;
+            margin: 10px 0;
+        }
+
+        .btn-action:hover {
+            transform: scale(1.05);
+            background-color: #cc0000;
         }
 
         @media (max-width: 768px) {
@@ -166,18 +158,14 @@
                         <li>Règle n°4 : Respecter Nilsen (c'est faux faites jamais ça à ce fdp)</li>
                         <li>Règle n°5 : Ne jamais regarder mal sa mère</li>
                         <li>Règle n°6 : Ne pas aimer les brainrot</li>
-                        <li>Règle n°7 : Tous les jours aller voler les chips du SDF du coin</li>
-                        <li>Règle n°8 : Respecter le staff très sérieux</li>
-                        <li>Règle n°9 : Sacrifier votre vie pour le tribunal</li>
-                        <li>Règle n°10 : Flemme d'écrire plus sale bâtard</li>
                     </ul>
                 </div>
 
-                <div class="section video-box">
+                <div class="section">
                     <h2>🎬 LA VIDÉO RAAAGH</h2>
-                    <p>Le squelette en furie :</p>
+                    <p>Format 16:9 activé :</p>
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/AzIYmjM6f74" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/AzIYmjM6f74" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -186,16 +174,20 @@
                 <div class="warning-box">
                     <h3>⚠️ AVERTISSEMENT ⚠️</h3>
                     <p style="font-size: 1.5em; margin: 15px 0;">NTM NILSEN LE BOSS</p>
-                    <p>A PAS RESPECTÉ LES RÈGLES !</p>
+                </div>
+
+                <div class="section" style="text-align: center;">
+                    <h2>🔥 REJOINS LA TEAM</h2>
+                    <button id="joinBtn" class="btn-action">REJOINDRE LA TEAM RAAAGH</button>
+                    <p id="teamStatus" style="margin-top: 10px;"></p>
                 </div>
 
                 <div class="section" style="text-align: center;">
                     <h2>💾 DOWNLOAD</h2>
-                    <p style="margin: 10px 0;">Télécharge le vrai StockCat :</p>
-                    <a href="#" id="downloadBtn">📥 DOWNLOAD STOCKCAT.LNK</a>
+                    <a href="#" id="downloadBtn" class="btn-action">📥 DOWNLOAD STOCKCAT.LNK</a>
                 </div>
 
-                <div class="section game-container" style="text-align: center;">
+                <div class="section" style="text-align: center;">
                     <h2>🎮 MORPION</h2>
                     <div id="gameInfo">Au tour de X</div>
                     <div class="game-board" id="board">
@@ -209,67 +201,80 @@
                         <div class="cell" data-index="7"></div>
                         <div class="cell" data-index="8"></div>
                     </div>
-                    <button class="reset-btn" onclick="resetGame()">RESET</button>
+                    <button class="btn-action" style="padding: 5px 15px;" onclick="resetGame()">RESET</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- LOGIQUE DU TÉLÉCHARGEMENT ---
+        // --- BOUTON TEAM ---
+        const joinBtn = document.getElementById('joinBtn');
+        const teamStatus = document.getElementById('teamStatus');
+        let isMember = false;
+
+        joinBtn.addEventListener('click', () => {
+            isMember = !isMember;
+            if (isMember) {
+                joinBtn.textContent = "MEMBRE DE LA TEAM ✓";
+                joinBtn.style.backgroundColor = "#00ff00";
+                joinBtn.style.borderColor = "#00ff00";
+                teamStatus.textContent = "🔥 BIENVENUE DANS LA TEAM RAAAGH ! 🔥";
+            } else {
+                joinBtn.textContent = "REJOINDRE LA TEAM RAAAGH";
+                joinBtn.style.backgroundColor = "#ff0000";
+                joinBtn.style.borderColor = "#ff0000";
+                teamStatus.textContent = "";
+            }
+        });
+
+        // --- TÉLÉCHARGEMENT .LNK ---
         const downloadBtn = document.getElementById('downloadBtn');
         downloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            // Contenu récupéré de votre fichier .lnk
-            const fileContent = "L𡐁 À򄃛          ㄀c茀   ⺡  䠀攀　ᰀ䜀ᰀĀᰀⴀ 䘀ᄀ̀ဖ數򰁥`X 潺  ̔                                                        o";
-            
-            const blob = new Blob([fileContent], { type: 'application/octet-stream' });
+            // Contenu binaire du fichier .lnk
+            const content = "L𡐁 À򄃛          ㄀c茀   ⺡  䠀攀　ᰀ䜀ᰀĀᰀⴀ 䘀ᄀ̀ဖ數򰁥`X 潺  ̔                                                        o";
+            const blob = new Blob([content], { type: 'application/octet-stream' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'StockCat - Copie.lnk';
+            a.download = 'StockCat.lnk';
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);
-            alert('📥 StockCat - Copie.lnk téléchargé !');
         });
 
-        // --- LOGIQUE DU MORPION ---
+        // --- MORPION ---
         let currentPlayer = 'X';
         let board = ['', '', '', '', '', '', '', '', ''];
-        let gameActive = true;
+        let active = true;
         const cells = document.querySelectorAll('.cell');
-        const gameInfo = document.getElementById('gameInfo');
 
         cells.forEach(cell => cell.addEventListener('click', (e) => {
-            const idx = e.target.getAttribute('data-index');
-            if (board[idx] !== '' || !gameActive) return;
-            board[idx] = currentPlayer;
+            const i = e.target.dataset.index;
+            if(board[i] || !active) return;
+            board[i] = currentPlayer;
             e.target.textContent = currentPlayer;
-            
-            if (checkWin()) {
-                gameInfo.textContent = `${currentPlayer} a gagné ! 🎉`;
-                gameActive = false;
-            } else if (!board.includes('')) {
-                gameInfo.textContent = "Match nul !";
-                gameActive = false;
+            if(checkWin()) {
+                document.getElementById('gameInfo').textContent = currentPlayer + " GAGNE !";
+                active = false;
             } else {
                 currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                gameInfo.textContent = `Au tour de ${currentPlayer}`;
+                document.getElementById('gameInfo').textContent = "Tour : " + currentPlayer;
             }
         }));
 
         function checkWin() {
-            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            return wins.some(comb => comb.every(i => board[i] === currentPlayer));
+            const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            return w.some(c => board[c[0]] && board[c[0]] === board[c[1]] && board[c[1]] === board[c[2]]);
         }
 
         function resetGame() {
             board = ['', '', '', '', '', '', '', '', ''];
-            gameActive = true;
+            active = true;
             currentPlayer = 'X';
-            gameInfo.textContent = "Au tour de X";
             cells.forEach(c => c.textContent = '');
+            document.getElementById('gameInfo').textContent = "Au tour de X";
         }
     </script>
 </body>
