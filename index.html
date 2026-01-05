@@ -1,11 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <title>RAAGH - Site troll</title>
+  <meta charset="UTF-8" />
+  <title>RAAGH - Le site le plus incroyable</title>
+  <style>
+    body {
+      background-color: #000; /* noir */
+      color: #ff0000; /* rouge */
+      font-family: 'Arial', sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 3em;
+      margin-bottom: 0.2em;
+    }
+    p {
+      font-size: 1.2em;
+      margin: 1em 0;
+    }
+    .image-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+    img {
+      max-width: 80%;
+      height: auto;
+      border: 3px solid #ff0000;
+      border-radius: 10px;
+    }
+    .memes {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .meme {
+      width: 150px;
+      border: 2px solid #ff0000;
+      border-radius: 10px;
+    }
+    video {
+      display: block;
+      margin: 20px auto;
+      max-width: 80%;
+      border: 3px solid #ff0000;
+      border-radius: 10px;
+    }
+    .ntm {
+      font-weight: bold;
+      font-size: 1.5em;
+      margin-top: 30px;
+      text-align: center;
+    }
+    .testimonial {
+      font-style: italic;
+      margin-top: 40px;
+      border-top: 2px solid #ff0000;
+      padding-top: 15px;
+      text-align: center;
+      font-size: 1.2em;
+    }
+  </style>
 </head>
 <body>
-  <h1>Bienvenue sur RAAGH, le site le plus éclaté du web</h1>
-  <p>Si tu vois ça, t’as réussi à faire un site GitHub Pages, GG !</p>
+  <h1>Bienvenue sur RAAGH</h1>
+  
+  <p>Le site le plus incroyable (c’est Tchoupi qui l’a dit !)</p>
+  
+  <div class="image-container">
+    <img src="image (14).jpg" alt="Image RAAGH" />
+  </div>
+
+  <div class="memes">
+    <img class="meme" src="https://i.imgflip.com/1ur9b0.jpg" alt="Meme 1" />
+    <img class="meme" src="https://i.imgflip.com/26am.jpg" alt="Meme 2" />
+  </div>
+
+  <video controls autoplay loop muted>
+    <source src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.mp4" type="video/mp4" />
+    Votre navigateur ne supporte pas la vidéo.
+  </video>
+
+  <p class="ntm">ntm nilsen le boss a pas respecté les règles</p>
+
+  <div class="testimonial">
+    « RAAGH est le site le plus incroyable qu'il ait jamais vu ! »<br/>
+    — Tchoupi (pas vrai)
+  </div>
 </body>
 </html>
+
