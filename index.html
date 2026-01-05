@@ -114,11 +114,18 @@
             display: inline-block;
             transition: all 0.3s;
             margin: 10px 0;
+            text-transform: uppercase;
         }
 
         .btn-action:hover {
             transform: scale(1.05);
             background-color: #cc0000;
+        }
+
+        /* Style spécifique pour le bouton Discord si tu veux le différencier un peu */
+        .discord-btn {
+            margin-top: 15px;
+            border-style: dashed;
         }
 
         .counter-box {
@@ -191,11 +198,18 @@
 
                 <div class="section" style="text-align: center;">
                     <h2>🔥 REJOINS LA TEAM</h2>
+                    
                     <button id="joinBtn" class="btn-action">REJOINDRE LA TEAM RAAAGH</button>
+                    
                     <div class="counter-box">
                         FORCE DE LA TEAM : <span id="memberCount">Chargement...</span>
                     </div>
                     <p id="teamStatus" style="margin-top: 10px; font-weight: bold;"></p>
+
+                    <br>
+                    <a href="https://discord.gg/nAJcYnFT" target="_blank" class="btn-action discord-btn">
+                        💬 REJOINDRE LE DISCORD
+                    </a>
                 </div>
 
                 <div class="section" style="text-align: center;">
@@ -230,10 +244,9 @@
         const joinBtn = document.getElementById('joinBtn');
         const teamStatus = document.getElementById('teamStatus');
         
-        // On utilise une clé unique pour ta team RAAAGH
         const apiKey = "team_raaagh_total_members_v1";
 
-        // Récupérer le score actuel au chargement
+        // Récupérer le score
         fetch(`https://api.countapi.xyz/get/raaagh_site/${apiKey}`)
             .then(res => res.json())
             .then(data => {
@@ -246,7 +259,6 @@
         joinBtn.addEventListener('click', () => {
             if (!joined) {
                 joined = true;
-                // On incrémente sur le serveur mondial
                 fetch(`https://api.countapi.xyz/hit/raaagh_site/${apiKey}`)
                     .then(res => res.json())
                     .then(data => {
@@ -256,7 +268,7 @@
                         teamStatus.textContent = "🔥 TU AS AJOUTÉ TA FORCE À LA TEAM ! 🔥";
                     });
             } else {
-                alert("Tu es déjà dans la team, bâtard ! On peut pas rejoindre deux fois.");
+                alert("Tu es déjà dans la team, bâtard !");
             }
         });
 
