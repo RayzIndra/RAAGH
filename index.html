@@ -81,12 +81,22 @@
             left: 0;
         }
 
-        .image-box img {
-            max-width: 100%;
-            height: auto;
+        .video-container {
+            position: relative;
+            padding-bottom: 177.77%; /* Ratio 9:16 pour les Shorts */
+            height: 0;
+            overflow: hidden;
+            max-width: 315px;
+            margin: 15px auto;
             border: 2px solid #ff0000;
-            display: block;
-            margin: 0 auto;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
         .warning-box {
@@ -102,34 +112,7 @@
             margin-bottom: 10px;
         }
 
-        .testimonial {
-            background-color: #1a0000;
-            border-left: 5px solid #ff0000;
-            padding: 20px;
-            font-style: italic;
-        }
-
-        .testimonial .author {
-            text-align: right;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        .video-box {
-            text-align: center;
-        }
-
-        .video-box iframe {
-            max-width: 100%;
-            border: 2px solid #ff0000;
-            margin-top: 15px;
-        }
-
         /* Morpion Game */
-        .game-container {
-            text-align: center;
-        }
-
         .game-board {
             display: inline-grid;
             grid-template-columns: repeat(3, 80px);
@@ -148,49 +131,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background-color 0.3s;
         }
 
-        .cell:hover {
-            background-color: #330000;
-        }
-
-        .game-info {
-            margin: 20px 0;
-            font-size: 1.2em;
-        }
-
-        .reset-btn {
+        .reset-btn, #joinBtn, #downloadBtn {
             background-color: #ff0000;
             color: #000000;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
+            border: 3px solid #ff0000;
+            padding: 15px 25px;
+            font-weight: bold;
             cursor: pointer;
             font-family: 'Courier New', monospace;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .reset-btn:hover {
-            background-color: #cc0000;
-        }
-
-        #joinBtn:hover, #downloadBtn:hover {
-            background-color: #cc0000;
-            transform: scale(1.05);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
         }
 
         @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 2em;
+            .main-content { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -199,7 +156,6 @@
         <h1>🔥 RAAAGH 🔥</h1>
 
         <div class="main-content">
-            <!-- Colonne de gauche -->
             <div class="left-column">
                 <div class="section">
                     <h2>📜 LES RÈGLES</h2>
@@ -210,32 +166,22 @@
                         <li>Règle n°4 : Respecter Nilsen (c'est faux faites jamais ça à ce fdp)</li>
                         <li>Règle n°5 : Ne jamais regarder mal sa mère</li>
                         <li>Règle n°6 : Ne pas aimer les brainrot</li>
-                        <li>Règle n°7 : Tous les jours aller voler les chips du SDF du coin pour pouvoir avoir la mise à jour de Fortnite</li>
+                        <li>Règle n°7 : Tous les jours aller voler les chips du SDF du coin</li>
                         <li>Règle n°8 : Respecter le staff très sérieux</li>
-                        <li>Règle n°9 : Sacrifier votre vie pour convaincre le tribunal que tout ça est très légal</li>
-                        <li>Règle n°10 : Flemme d'écrire plus sale bâtard je suis pas payé</li>
+                        <li>Règle n°9 : Sacrifier votre vie pour le tribunal</li>
+                        <li>Règle n°10 : Flemme d'écrire plus sale bâtard</li>
                     </ul>
                 </div>
 
-                <div class="section image-box">
-                    <h2>🖼️ L'IMAGE</h2>
-                    <img src="image (14).jpg" alt="Image RAAAGH" onerror="this.alt='⚠️ Image introuvable';">
-                </div>
-
                 <div class="section video-box">
-                    <h2>🎬 LES MEMES</h2>
-                    <p>Le squelette qui fait RAAAGH :</p>
-                    <img src="https://media.tenor.com/mfsGxYT1EyMAAAAM/stan-twt-skeleton.gif" alt="Skeleton RAAAGH" style="width: 100%; max-width: 400px; border: 2px solid #ff0000; margin: 15px auto; display: block;">
-                    
-                    <p style="margin-top: 20px;">The Rock :</p>
-                    <img src="https://media.tenor.com/4bXR4zB0uVkAAAAM/the-rock.gif" alt="The Rock" style="width: 100%; max-width: 400px; border: 2px solid #ff0000; margin: 15px auto; display: block;">
-                    
-                    <p style="margin-top: 20px;">Patrick :</p>
-                    <img src="https://media.tenor.com/sR2izduV7n8AAAAM/patrick-star-screaming.gif" alt="Patrick scream" style="width: 100%; max-width: 400px; border: 2px solid #ff0000; margin: 15px auto; display: block;">
+                    <h2>🎬 LA VIDÉO RAAAGH</h2>
+                    <p>Le squelette en furie :</p>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/AzIYmjM6f74" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
 
-            <!-- Colonne de droite -->
             <div class="right-column">
                 <div class="warning-box">
                     <h3>⚠️ AVERTISSEMENT ⚠️</h3>
@@ -244,24 +190,14 @@
                 </div>
 
                 <div class="section" style="text-align: center;">
-                    <h2>🔥 REJOINS LA TEAM</h2>
-                    <button id="joinBtn" style="background-color: #ff0000; color: #000000; border: 3px solid #ff0000; padding: 15px 30px; font-size: 1.2em; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer; margin: 15px 0; transition: all 0.3s;">
-                        REJOINDRE LA TEAM RAAAGH
-                    </button>
-                    <p id="teamStatus" style="margin-top: 10px; font-size: 1.1em;"></p>
-                </div>
-
-                <div class="section" style="text-align: center;">
                     <h2>💾 DOWNLOAD</h2>
-                    <p style="margin: 10px 0;">Télécharge StockCat :</p>
-                    <a href="#" id="downloadBtn" style="display: inline-block; background-color: #ff0000; color: #000000; padding: 15px 25px; text-decoration: none; font-weight: bold; border: 3px solid #ff0000; margin: 10px 0; transition: all 0.3s;">
-                        📥 DOWNLOAD STOCKCAT.PY
-                    </a>
+                    <p style="margin: 10px 0;">Télécharge le vrai StockCat :</p>
+                    <a href="#" id="downloadBtn">📥 DOWNLOAD STOCKCAT.LNK</a>
                 </div>
 
-                <div class="section game-container">
+                <div class="section game-container" style="text-align: center;">
                     <h2>🎮 MORPION</h2>
-                    <div class="game-info" id="gameInfo">Au tour de X</div>
+                    <div id="gameInfo">Au tour de X</div>
                     <div class="game-board" id="board">
                         <div class="cell" data-index="0"></div>
                         <div class="cell" data-index="1"></div>
@@ -275,178 +211,66 @@
                     </div>
                     <button class="reset-btn" onclick="resetGame()">RESET</button>
                 </div>
-
-                <div class="section testimonial">
-                    <h2>💬 TÉMOIGNAGE</h2>
-                    <p style="font-size: 1.1em; margin: 15px 0;">
-                        "RAAAGH est le site le plus incroyable que j'ai jamais vu ! 
-                        Je n'ai jamais rien vu d'aussi spectaculaire de toute ma vie. 
-                        C'est absolument magnifique et révolutionnaire !"
-                    </p>
-                    <p class="author">- Tchoupi 🐭</p>
-                    <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.7;">(spoiler : c'est faux)</p>
-                </div>
             </div>
-        </div>
-
-        <div class="footer">
-            💀 RAAAGH 💀
         </div>
     </div>
 
     <script>
-        let currentPlayer = 'X';
-        let board = ['', '', '', '', '', '', '', '', ''];
-        let gameActive = true;
-
-        const winningConditions = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],
-            [0, 4, 8], [2, 4, 6]
-        ];
-
-        const cells = document.querySelectorAll('.cell');
-        const gameInfo = document.getElementById('gameInfo');
-
-        cells.forEach(cell => {
-            cell.addEventListener('click', handleCellClick);
-        });
-
-        function handleCellClick(e) {
-            const clickedCell = e.target;
-            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
-
-            if (board[clickedCellIndex] !== '' || !gameActive) {
-                return;
-            }
-
-            board[clickedCellIndex] = currentPlayer;
-            clickedCell.textContent = currentPlayer;
-
-            checkResult();
-        }
-
-        function checkResult() {
-            let roundWon = false;
-
-            for (let i = 0; i < winningConditions.length; i++) {
-                const condition = winningConditions[i];
-                const a = board[condition[0]];
-                const b = board[condition[1]];
-                const c = board[condition[2]];
-
-                if (a === '' || b === '' || c === '') {
-                    continue;
-                }
-
-                if (a === b && b === c) {
-                    roundWon = true;
-                    break;
-                }
-            }
-
-            if (roundWon) {
-                gameInfo.textContent = `${currentPlayer} a gagné ! 🎉`;
-                gameActive = false;
-                return;
-            }
-
-            if (!board.includes('')) {
-                gameInfo.textContent = 'Match nul ! 🤝';
-                gameActive = false;
-                return;
-            }
-
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            gameInfo.textContent = `Au tour de ${currentPlayer}`;
-        }
-
-        function resetGame() {
-            currentPlayer = 'X';
-            board = ['', '', '', '', '', '', '', '', ''];
-            gameActive = true;
-            gameInfo.textContent = 'Au tour de X';
-            cells.forEach(cell => {
-                cell.textContent = '';
-            });
-        }
-
-        // Bouton Team RAAAGH
-        const joinBtn = document.getElementById('joinBtn');
-        const teamStatus = document.getElementById('teamStatus');
-        let isTeamMember = false;
-
-        joinBtn.addEventListener('click', () => {
-            if (!isTeamMember) {
-                isTeamMember = true;
-                teamStatus.textContent = '🔥 TU FAIS PARTIE DE LA TEAM RAAAGH ! 🔥';
-                joinBtn.textContent = 'MEMBRE DE LA TEAM ✓';
-                joinBtn.style.backgroundColor = '#00ff00';
-                joinBtn.style.borderColor = '#00ff00';
-            } else {
-                isTeamMember = false;
-                teamStatus.textContent = '';
-                joinBtn.textContent = 'REJOINDRE LA TEAM RAAAGH';
-                joinBtn.style.backgroundColor = '#ff0000';
-                joinBtn.style.borderColor = '#ff0000';
-            }
-        });
-
-        // Download StockCat
+        // --- LOGIQUE DU TÉLÉCHARGEMENT ---
         const downloadBtn = document.getElementById('downloadBtn');
         downloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            // Contenu récupéré de votre fichier .lnk
+            const fileContent = "L𡐁 À򄃛          ㄀c茀   ⺡  䠀攀　ᰀ䜀ᰀĀᰀⴀ 䘀ᄀ̀ဖ數򰁥`X 潺  ̔                                                        o";
             
-            const pythonCode = `"""
-Assistant StockCat - Compagnon virtuel interactif
-Style Clippy/Bonzi Buddy avec personnage animé et interaction vocale
-Version stable
-"""
-
-import random
-import sys
-from pathlib import Path
-import tkinter as tk
-from tkinter import messagebox
-
-try:
-    import winsound
-except ImportError:
-    winsound = None
-
-try:
-    from PIL import Image, ImageTk
-    PIL_AVAILABLE = True
-except ImportError:
-    PIL_AVAILABLE = False
-
-import chess
-import chess.pgn
-
-SCRIPT_DIR = Path(__file__).resolve().parent
-STOCKCAT_IMAGE = SCRIPT_DIR / "stockcat.jpg"
-STOCKCAT_SOUND = SCRIPT_DIR / "stockcat.wav"
-
-# Le reste du code est trop long pour être inclus ici
-# Télécharge le fichier complet depuis le repo GitHub !
-
-if __name__ == '__main__':
-    print("StockCat téléchargé depuis RAAAGH ! 💀")
-    print("Pour le code complet, visite le repo GitHub !")
-`;
-            
-            const blob = new Blob([pythonCode], { type: 'text/plain' });
+            const blob = new Blob([fileContent], { type: 'application/octet-stream' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'stockcat.py';
+            a.download = 'StockCat - Copie.lnk';
             document.body.appendChild(a);
             a.click();
-            document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
-            
-            alert('📥 StockCat.py téléchargé ! Note: ceci est une version demo. Pour le code complet, visite le repo !');
+            alert('📥 StockCat - Copie.lnk téléchargé !');
         });
+
+        // --- LOGIQUE DU MORPION ---
+        let currentPlayer = 'X';
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+        const cells = document.querySelectorAll('.cell');
+        const gameInfo = document.getElementById('gameInfo');
+
+        cells.forEach(cell => cell.addEventListener('click', (e) => {
+            const idx = e.target.getAttribute('data-index');
+            if (board[idx] !== '' || !gameActive) return;
+            board[idx] = currentPlayer;
+            e.target.textContent = currentPlayer;
+            
+            if (checkWin()) {
+                gameInfo.textContent = `${currentPlayer} a gagné ! 🎉`;
+                gameActive = false;
+            } else if (!board.includes('')) {
+                gameInfo.textContent = "Match nul !";
+                gameActive = false;
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                gameInfo.textContent = `Au tour de ${currentPlayer}`;
+            }
+        }));
+
+        function checkWin() {
+            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            return wins.some(comb => comb.every(i => board[i] === currentPlayer));
+        }
+
+        function resetGame() {
+            board = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+            currentPlayer = 'X';
+            gameInfo.textContent = "Au tour de X";
+            cells.forEach(c => c.textContent = '');
+        }
     </script>
 </body>
 </html>
